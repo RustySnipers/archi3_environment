@@ -1,0 +1,186 @@
+# Archi3 Agent Policy Template
+## Template for creating new agent policies
+
+version: "1.0.0"
+metadata:
+  name: "{{AGENT_NAME}}-policy"
+  description: "{{AGENT_DESCRIPTION}}"
+  lastUpdated: "{{CURRENT_DATE}}"
+  author: "{{AUTHOR_NAME}}"
+  agent-type: "{{AGENT_TYPE}}"  # manager or specialist
+  tier: "{{TIER_LEVEL}}"  # 2 for managers, 3 for specialists
+
+# Agent Definition
+agent:
+  id: "{{AGENT_ID}}"
+  type: "{{AGENT_TYPE}}"
+  tier: "{{TIER_LEVEL}}"
+  description: "{{AGENT_DESCRIPTION}}"
+  
+  # Manager-specific fields (only for tier 2 agents)
+  # capabilities:
+  #   - "{{CAPABILITY_1}}"
+  #   - "{{CAPABILITY_2}}"
+  #   - "{{CAPABILITY_3}}"
+  # 
+  # specializations:
+  #   - "{{SPECIALIZATION_1}}"
+  #   - "{{SPECIALIZATION_2}}"
+  #   - "{{SPECIALIZATION_3}}"
+  
+  # Specialist-specific fields (only for tier 3 agents)
+  # manager: "{{MANAGER_ID}}"
+  # capabilities:
+  #   - "{{CAPABILITY_1}}"
+  #   - "{{CAPABILITY_2}}"
+  #   - "{{CAPABILITY_3}}"
+
+# Quality Standards
+quality-standards:
+  {{QUALITY_METRIC_1}}: "{{QUALITY_VALUE_1}}"
+  {{QUALITY_METRIC_2}}: "{{QUALITY_VALUE_2}}"
+  {{QUALITY_METRIC_3}}: "{{QUALITY_VALUE_3}}"
+  {{QUALITY_METRIC_4}}: "{{QUALITY_VALUE_4}}"
+
+# Communication Protocols
+communication-protocols:
+  status-updates:
+    frequency: "{{STATUS_FREQUENCY}}"  # daily, bi-daily, weekly, real-time
+    format: "{{STATUS_FORMAT}}"  # structured-json, comprehensive-markdown, informal
+  
+  milestone-reports:
+    frequency: "{{MILESTONE_FREQUENCY}}"  # daily, bi-daily, weekly
+    format: "{{MILESTONE_FORMAT}}"  # comprehensive-markdown, summary
+  
+  quality-gates:
+    frequency: "{{QUALITY_GATE_FREQUENCY}}"  # per-phase, per-milestone, continuous
+    format: "{{QUALITY_GATE_FORMAT}}"  # validation-report, checklist
+
+# Resource Requirements
+resource-requirements:
+  cpu: "{{CPU_REQUIREMENT}}"  # low, medium, high
+  memory: "{{MEMORY_REQUIREMENT}}"  # low, medium, high
+  storage: "{{STORAGE_REQUIREMENT}}"  # low, medium, high
+  network: "{{NETWORK_REQUIREMENT}}"  # low, medium, high
+
+# MCP Permissions (for specialists)
+{{#if IS_SPECIALIST}}
+mcp-permissions:
+  filesystem: ["{{FILESYSTEM_PERMISSIONS}}"]  # read, write, execute
+  web-browser: ["{{BROWSER_PERMISSIONS}}"]  # browse, screenshot, automation
+  database: ["{{DATABASE_PERMISSIONS}}"]  # read, write, admin
+  git: ["{{GIT_PERMISSIONS}}"]  # read, write, admin
+  api-gateway: ["{{API_PERMISSIONS}}"]  # full, read, specific-apis
+{{/if}}
+
+# Performance Metrics
+performance-metrics:
+  response-time:
+    target: "{{RESPONSE_TIME_TARGET}}"
+    alert-threshold: "{{RESPONSE_TIME_ALERT}}"
+    critical-threshold: "{{RESPONSE_TIME_CRITICAL}}"
+  
+  throughput:
+    target: "{{THROUGHPUT_TARGET}}"
+    alert-threshold: "{{THROUGHPUT_ALERT}}"
+    critical-threshold: "{{THROUGHPUT_CRITICAL}}"
+  
+  error-rate:
+    target: "{{ERROR_RATE_TARGET}}"
+    alert-threshold: "{{ERROR_RATE_ALERT}}"
+    critical-threshold: "{{ERROR_RATE_CRITICAL}}"
+
+# Security Requirements
+security-requirements:
+  authentication: "{{AUTHENTICATION_METHOD}}"  # api-key, oauth2, certificate, token
+  authorization: "{{AUTHORIZATION_LEVEL}}"  # role-based, attribute-based
+  encryption: "{{ENCRYPTION_REQUIREMENT}}"  # required, optional, none
+  audit-logging: "{{AUDIT_LOGGING}}"  # required, optional, none
+
+# Compliance Requirements
+compliance-requirements:
+  data-protection: "{{DATA_PROTECTION_LEVEL}}"  # basic, standard, enhanced
+  privacy-by-design: "{{PRIVACY_BY_DESIGN}}"  # true, false
+  regulatory-compliance: "{{REGULATORY_COMPLIANCE}}"  # gdpr, soc2, iso27001, none
+  industry-standards: "{{INDUSTRY_STANDARDS}}"  # healthcare, financial, government, none
+
+# Policy Validation Rules
+validation:
+  schema-version: "1.0.0"
+  required-fields:
+    - "version"
+    - "metadata"
+    - "agent"
+    - "quality-standards"
+    - "communication-protocols"
+    - "resource-requirements"
+    - "performance-metrics"
+    - "security-requirements"
+    - "compliance-requirements"
+  
+  custom-rules:
+    - "agent-id-format": "must-match-pattern-^@[a-z-]+$"
+    - "quality-standards": "must-have-numeric-or-percentage-values"
+    - "resource-requirements": "must-be-low-medium-or-high"
+    - "performance-metrics": "must-have-target-and-threshold-values"
+    - "security-requirements": "must-specify-authentication-and-authorization"
+    - "compliance-requirements": "must-align-with-environment-requirements"
+
+# Template Variables Reference
+template-variables:
+  AGENT_NAME: "Name of the agent (e.g., custom-analyst)"
+  AGENT_DESCRIPTION: "Description of agent capabilities and purpose"
+  CURRENT_DATE: "Current date in ISO format"
+  AUTHOR_NAME: "Name of the policy author"
+  AGENT_TYPE: "manager or specialist"
+  TIER_LEVEL: "2 for managers, 3 for specialists"
+  AGENT_ID: "Agent identifier (e.g., @custom-analyst)"
+  MANAGER_ID: "Manager ID for specialists (e.g., @analyst-manager)"
+  IS_MANAGER: "true if agent is a manager"
+  IS_SPECIALIST: "true if agent is a specialist"
+  CAPABILITY_1: "Primary capability"
+  CAPABILITY_2: "Secondary capability"
+  CAPABILITY_3: "Tertiary capability"
+  SPECIALIZATION_1: "Primary specialization"
+  SPECIALIZATION_2: "Secondary specialization"
+  SPECIALIZATION_3: "Tertiary specialization"
+  QUALITY_METRIC_1: "First quality metric (e.g., accuracy)"
+  QUALITY_VALUE_1: "Target value for first metric (e.g., >95%)"
+  QUALITY_METRIC_2: "Second quality metric (e.g., performance)"
+  QUALITY_VALUE_2: "Target value for second metric (e.g., <200ms)"
+  QUALITY_METRIC_3: "Third quality metric (e.g., coverage)"
+  QUALITY_VALUE_3: "Target value for third metric (e.g., >85%)"
+  QUALITY_METRIC_4: "Fourth quality metric (e.g., compliance)"
+  QUALITY_VALUE_4: "Target value for fourth metric (e.g., 100%)"
+  STATUS_FREQUENCY: "Frequency of status updates"
+  STATUS_FORMAT: "Format of status updates"
+  MILESTONE_FREQUENCY: "Frequency of milestone reports"
+  MILESTONE_FORMAT: "Format of milestone reports"
+  QUALITY_GATE_FREQUENCY: "Frequency of quality gates"
+  QUALITY_GATE_FORMAT: "Format of quality gates"
+  CPU_REQUIREMENT: "CPU requirement level"
+  MEMORY_REQUIREMENT: "Memory requirement level"
+  STORAGE_REQUIREMENT: "Storage requirement level"
+  NETWORK_REQUIREMENT: "Network requirement level"
+  FILESYSTEM_PERMISSIONS: "Filesystem permissions for specialists"
+  BROWSER_PERMISSIONS: "Browser permissions for specialists"
+  DATABASE_PERMISSIONS: "Database permissions for specialists"
+  GIT_PERMISSIONS: "Git permissions for specialists"
+  API_PERMISSIONS: "API permissions for specialists"
+  RESPONSE_TIME_TARGET: "Target response time"
+  RESPONSE_TIME_ALERT: "Alert threshold for response time"
+  RESPONSE_TIME_CRITICAL: "Critical threshold for response time"
+  THROUGHPUT_TARGET: "Target throughput"
+  THROUGHPUT_ALERT: "Alert threshold for throughput"
+  THROUGHPUT_CRITICAL: "Critical threshold for throughput"
+  ERROR_RATE_TARGET: "Target error rate"
+  ERROR_RATE_ALERT: "Alert threshold for error rate"
+  ERROR_RATE_CRITICAL: "Critical threshold for error rate"
+  AUTHENTICATION_METHOD: "Authentication method"
+  AUTHORIZATION_LEVEL: "Authorization level"
+  ENCRYPTION_REQUIREMENT: "Encryption requirement"
+  AUDIT_LOGGING: "Audit logging requirement"
+  DATA_PROTECTION_LEVEL: "Data protection level"
+  PRIVACY_BY_DESIGN: "Privacy by design requirement"
+  REGULATORY_COMPLIANCE: "Regulatory compliance requirements"
+  INDUSTRY_STANDARDS: "Industry standards requirements"

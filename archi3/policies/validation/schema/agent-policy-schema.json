@@ -1,0 +1,533 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Archi3 Agent Policy Schema",
+  "description": "JSON Schema for Archi3 agent policies",
+  "type": "object",
+  "required": ["version", "metadata", "agents", "coordination", "quality-assurance"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Policy version in semantic versioning format"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["name", "description", "lastUpdated", "author"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Policy name"
+        },
+        "description": {
+          "type": "string",
+          "description": "Policy description"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        },
+        "author": {
+          "type": "string",
+          "description": "Policy author"
+        }
+      }
+    },
+    "agents": {
+      "type": "object",
+      "required": ["managers", "specialists"],
+      "properties": {
+        "managers": {
+          "type": "object",
+          "patternProperties": {
+            "^@[a-z-]+$": {
+              "type": "object",
+              "required": ["id", "type", "tier", "description", "capabilities", "specializations", "quality-standards", "communication-protocols", "resource-requirements"],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^@[a-z-]+$"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": ["manager"]
+                },
+                "tier": {
+                  "type": "integer",
+                  "enum": [2]
+                },
+                "description": {
+                  "type": "string"
+                },
+                "capabilities": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "specializations": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "quality-standards": {
+                  "type": "object",
+                  "patternProperties": {
+                    "^.+$": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "communication-protocols": {
+                  "type": "object",
+                  "required": ["status-updates", "milestone-reports", "quality-gates"],
+                  "properties": {
+                    "status-updates": {
+                      "type": "string",
+                      "enum": ["daily", "bi-daily", "weekly", "real-time", "on-demand"]
+                    },
+                    "milestone-reports": {
+                      "type": "string",
+                      "enum": ["daily", "bi-daily", "weekly"]
+                    },
+                    "quality-gates": {
+                      "type": "string",
+                      "enum": ["per-phase", "per-milestone", "continuous"]
+                    }
+                  }
+                },
+                "resource-requirements": {
+                  "type": "object",
+                  "required": ["cpu", "memory", "storage", "network"],
+                  "properties": {
+                    "cpu": {
+                      "type": "string",
+                      "enum": ["low", "medium", "high"]
+                    },
+                    "memory": {
+                      "type": "string",
+                      "enum": ["low", "medium", "high"]
+                    },
+                    "storage": {
+                      "type": "string",
+                      "enum": ["low", "medium", "high"]
+                    },
+                    "network": {
+                      "type": "string",
+                      "enum": ["low", "medium", "high"]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "specialists": {
+          "type": "object",
+          "patternProperties": {
+            "^@[a-z-]+$": {
+              "type": "object",
+              "required": ["id", "type", "tier", "manager", "description", "capabilities", "quality-standards", "mcp-permissions"],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^@[a-z-]+$"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": ["specialist"]
+                },
+                "tier": {
+                  "type": "integer",
+                  "enum": [3]
+                },
+                "manager": {
+                  "type": "string",
+                  "pattern": "^@[a-z-]+$"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "capabilities": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "quality-standards": {
+                  "type": "object",
+                  "patternProperties": {
+                    "^.+$": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "mcp-permissions": {
+                  "type": "object",
+                  "properties": {
+                    "filesystem": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": ["read", "write", "execute"]
+                      }
+                    },
+                    "web-browser": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": ["browse", "screenshot", "automation"]
+                      }
+                    },
+                    "database": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": ["read", "write", "admin"]
+                      }
+                    },
+                    "git": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": ["read", "write", "admin"]
+                      }
+                    },
+                    "api-gateway": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "coordination": {
+      "type": "object",
+      "required": ["communication-protocols", "conflict-resolution", "resource-management"],
+      "properties": {
+        "communication-protocols": {
+          "type": "object",
+          "required": ["status-updates", "milestone-reports", "quality-gates"],
+          "properties": {
+            "status-updates": {
+              "type": "object",
+              "required": ["frequency", "format", "required-fields"],
+              "properties": {
+                "frequency": {
+                  "type": "string"
+                },
+                "format": {
+                  "type": "string"
+                },
+                "required-fields": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "milestone-reports": {
+              "type": "object",
+              "required": ["frequency", "format", "required-fields"],
+              "properties": {
+                "frequency": {
+                  "type": "string"
+                },
+                "format": {
+                  "type": "string"
+                },
+                "required-fields": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "quality-gates": {
+              "type": "object",
+              "required": ["frequency", "format", "required-fields"],
+              "properties": {
+                "frequency": {
+                  "type": "string"
+                },
+                "format": {
+                  "type": "string"
+                },
+                "required-fields": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "conflict-resolution": {
+          "type": "object",
+          "required": ["escalation-levels", "resolution-timeouts"],
+          "properties": {
+            "escalation-levels": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "resolution-timeouts": {
+              "type": "object",
+              "patternProperties": {
+                "^.+$": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "resource-management": {
+          "type": "object",
+          "required": ["load-balancing", "auto-scaling"],
+          "properties": {
+            "load-balancing": {
+              "type": "object",
+              "required": ["enabled", "algorithm", "capacity-threshold"],
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "algorithm": {
+                  "type": "string"
+                },
+                "capacity-threshold": {
+                  "type": "string"
+                }
+              }
+            },
+            "auto-scaling": {
+              "type": "object",
+              "required": ["enabled", "min-instances", "max-instances", "scale-up-threshold", "scale-down-threshold"],
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "min-instances": {
+                  "type": "integer"
+                },
+                "max-instances": {
+                  "type": "integer"
+                },
+                "scale-up-threshold": {
+                  "type": "string"
+                },
+                "scale-down-threshold": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "quality-assurance": {
+      "type": "object",
+      "required": ["validation-levels", "quality-gates"],
+      "properties": {
+        "validation-levels": {
+          "type": "object",
+          "patternProperties": {
+            "^level-[1-3]$": {
+              "type": "object",
+              "required": ["name", "description", "requirements"],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "requirements": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "quality-gates": {
+          "type": "object",
+          "patternProperties": {
+            "^.+$": {
+              "type": "object",
+              "required": ["criteria", "approval"],
+              "properties": {
+                "criteria": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "approval": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "performance-monitoring": {
+      "type": "object",
+      "required": ["metrics", "alerting"],
+      "properties": {
+        "metrics": {
+          "type": "object",
+          "patternProperties": {
+            "^.+$": {
+              "type": "object",
+              "required": ["target", "alert-threshold", "critical-threshold"],
+              "properties": {
+                "target": {
+                  "type": "string"
+                },
+                "alert-threshold": {
+                  "type": "string"
+                },
+                "critical-threshold": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "alerting": {
+          "type": "object",
+          "required": ["channels", "escalation"],
+          "properties": {
+            "channels": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "escalation": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["timeout", "condition"],
+                "properties": {
+                  "timeout": {
+                    "type": "string"
+                  },
+                  "condition": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "compliance": {
+      "type": "object",
+      "required": ["data-protection", "audit-logging", "access-control"],
+      "properties": {
+        "data-protection": {
+          "type": "object",
+          "required": ["encryption", "key-rotation", "data-retention", "privacy-by-design"],
+          "properties": {
+            "encryption": {
+              "type": "string"
+            },
+            "key-rotation": {
+              "type": "string"
+            },
+            "data-retention": {
+              "type": "string"
+            },
+            "privacy-by-design": {
+              "type": "boolean"
+            }
+          }
+        },
+        "audit-logging": {
+          "type": "object",
+          "required": ["enabled", "log-level", "retention-period", "sensitive-data-masking"],
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "log-level": {
+              "type": "string",
+              "enum": ["debug", "info", "warn", "error", "critical"]
+            },
+            "retention-period": {
+              "type": "string"
+            },
+            "sensitive-data-masking": {
+              "type": "boolean"
+            }
+          }
+        },
+        "access-control": {
+          "type": "object",
+          "required": ["authentication", "authorization", "session-timeout", "password-policy"],
+          "properties": {
+            "authentication": {
+              "type": "string"
+            },
+            "authorization": {
+              "type": "string"
+            },
+            "session-timeout": {
+              "type": "string"
+            },
+            "password-policy": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "required": ["schema-version", "required-fields", "custom-rules"],
+      "properties": {
+        "schema-version": {
+          "type": "string"
+        },
+        "required-fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "custom-rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["rule-name", "rule-description"],
+            "properties": {
+              "rule-name": {
+                "type": "string"
+              },
+              "rule-description": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

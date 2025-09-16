@@ -1,0 +1,215 @@
+# Archi3 Development Environment Policies
+## Development-specific configurations and overrides
+
+version: "1.0.0"
+metadata:
+  name: "development-environment"
+  description: "Development environment specific policies and configurations"
+  lastUpdated: "2024-01-20T10:00:00Z"
+  author: "Archi3 System"
+  environment: "development"
+
+# Environment-specific settings
+environment-settings:
+  debug-mode: true
+  verbose-logging: true
+  relaxed-security: true
+  mock-external-services: true
+  performance-monitoring: "detailed"
+  error-reporting: "verbose"
+
+# Agent Configuration Overrides
+agent-overrides:
+  quality-standards:
+    "@coder-manager":
+      code-coverage: ">70%"  # Relaxed from >85%
+      performance: "<500ms"  # Relaxed from <200ms
+      security: "basic-checks"  # Relaxed from OWASP-compliance
+    
+    "@analyst-manager":
+      statistical-significance: "p<0.1"  # Relaxed from p<0.05
+      data-completeness: ">80%"  # Relaxed from >90%
+    
+    "@research-manager":
+      source-validation: "2-sources"  # Relaxed from multiple-sources
+      currency: "within-90-days"  # Relaxed from within-30-days
+    
+    "@writer-manager":
+      seo-optimization: ">60%"  # Relaxed from >80%
+      brand-consistency: ">90%"  # Relaxed from 100%
+
+  communication-protocols:
+    status-updates:
+      frequency: "on-demand"  # Relaxed from daily
+      format: "informal"  # Relaxed from structured-json
+    
+    milestone-reports:
+      frequency: "weekly"  # Relaxed from bi-daily
+      format: "summary"  # Relaxed from comprehensive-markdown
+
+# MCP Server Configuration
+mcp-servers:
+  filesystem:
+    enabled: true
+    max-file-size: "50MB"  # Reduced from 100MB
+    allowed-paths: ["/workspace", "/tmp", "/home", "/dev"]
+    blocked-paths: ["/etc", "/usr/bin", "/usr/sbin"]
+    audit-logging: false  # Disabled for development
+  
+  web-browser:
+    enabled: true
+    headless: false  # Show browser for debugging
+    rate-limit: "5 requests/minute"  # Reduced from 10
+    allowed-domains: ["*"]  # Allow all domains for development
+    security-scanning: false  # Disabled for development
+  
+  database:
+    enabled: true
+    connection-string: "postgresql://localhost:5432/archi3_dev"
+    max-connections: 2  # Reduced from 5
+    ssl-required: false  # Disabled for development
+    audit-queries: false  # Disabled for development
+  
+  git:
+    enabled: true
+    require-pull-request: false  # Disabled for development
+    audit-commits: false  # Disabled for development
+    max-commit-size: "50MB"  # Increased from 10MB
+  
+  api-gateway:
+    enabled: true
+    mock-external-apis: true  # Enable mocking
+    rate-limit: "1000/hour"  # Increased from 200/hour
+    timeout: "60s"  # Increased from 30s
+
+# Security Configuration Overrides
+security-overrides:
+  authentication:
+    multi-factor-authentication:
+      enabled: false  # Disabled for development
+      required-for: []  # No operations require MFA
+    
+    session-timeout: "24-hours"  # Extended from 8-hours
+    password-policy: "basic"  # Relaxed from enterprise-grade
+  
+  authorization:
+    role-based-access-control:
+      relaxed-permissions: true  # Allow broader access
+      admin-operations: "developer-accessible"
+    
+    agent-specific-permissions:
+      "@coder-manager":
+        filesystem: ["read", "write", "execute", "delete"]  # Added delete
+        mcp-servers: ["*"]  # Access to all servers
+  
+  data-protection:
+    encryption:
+      at-rest: "optional"  # Relaxed from required
+      in-transit: "optional"  # Relaxed from required
+    
+    data-classification:
+      internal: "encryption-optional"
+      confidential: "encryption-recommended"
+      restricted: "encryption-required"
+  
+  audit-logging:
+    enabled: false  # Disabled for development
+    log-level: "debug"  # Most verbose logging
+    sensitive-data-masking: false  # Disabled for debugging
+
+# Network Security Overrides
+network-security:
+  firewall-rules:
+    inbound:
+      - "port-443: https-traffic"
+      - "port-22: ssh-admin-access"
+      - "port-8080: internal-api"
+      - "port-9090: monitoring"
+      - "port-3000: development-server"  # Added for dev
+      - "port-5432: postgres"  # Added for dev database
+    
+    outbound:
+      - "all-ports"  # Allow all outbound for development
+  
+  vpn-access:
+    enabled: false  # Disabled for development
+  
+  intrusion-detection:
+    enabled: false  # Disabled for development
+
+# Compliance Overrides
+compliance:
+  standards:
+    gdpr:
+      enabled: false  # Disabled for development
+    soc2:
+      enabled: false  # Disabled for development
+    iso27001:
+      enabled: false  # Disabled for development
+  
+  regulatory-compliance:
+    data-residency: "not-applicable"
+    industry-standards: "not-applicable"
+
+# Performance Monitoring Overrides
+performance-monitoring:
+  metrics:
+    response-time:
+      target: "<500ms"  # Relaxed from <200ms
+      alert-threshold: ">1000ms"  # Relaxed from >500ms
+    
+    throughput:
+      target: ">100 requests/hour"  # Relaxed from >1000
+      alert-threshold: "<50 requests/hour"  # Relaxed from <500
+    
+    error-rate:
+      target: "<5%"  # Relaxed from <1%
+      alert-threshold: ">10%"  # Relaxed from >5%
+  
+  alerting:
+    enabled: false  # Disabled for development
+    channels: ["console"]  # Only console output
+
+# Development Tools and Utilities
+development-tools:
+  debugging:
+    enabled: true
+    breakpoints: true
+    step-through: true
+    variable-inspection: true
+  
+  testing:
+    unit-tests: "required"
+    integration-tests: "optional"
+    performance-tests: "optional"
+    security-tests: "optional"
+  
+  hot-reload:
+    enabled: true
+    file-watching: true
+    auto-restart: true
+  
+  development-databases:
+    enabled: true
+    auto-migration: true
+    seed-data: true
+    backup-frequency: "daily"
+
+# Policy Validation Rules
+validation:
+  schema-version: "1.0.0"
+  required-sections:
+    - "environment-settings"
+    - "agent-overrides"
+    - "mcp-servers"
+    - "security-overrides"
+    - "network-security"
+    - "compliance"
+    - "performance-monitoring"
+    - "development-tools"
+  
+  custom-rules:
+    - "security-relaxation": "must-be-justified-for-development"
+    - "debugging-enabled": "must-have-comprehensive-debugging"
+    - "external-services": "must-have-mocking-capabilities"
+    - "performance-targets": "must-be-relaxed-for-development"

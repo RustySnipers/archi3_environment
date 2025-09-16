@@ -1,0 +1,321 @@
+# Archi3 Production Environment Policies
+## Production-specific configurations and security requirements
+
+version: "1.0.0"
+metadata:
+  name: "production-environment"
+  description: "Production environment specific policies and configurations"
+  lastUpdated: "2024-01-20T10:00:00Z"
+  author: "Archi3 System"
+  environment: "production"
+
+# Environment-specific settings
+environment-settings:
+  debug-mode: false
+  verbose-logging: false
+  strict-security: true
+  real-external-services: true
+  performance-monitoring: "comprehensive"
+  error-reporting: "secure"
+
+# Agent Configuration Overrides
+agent-overrides:
+  quality-standards:
+    "@coder-manager":
+      code-coverage: ">90%"  # Stricter than standard >85%
+      performance: "<100ms"  # Stricter than standard <200ms
+      security: "OWASP-compliance-plus"  # Enhanced security
+      documentation: "comprehensive-and-current"
+    
+    "@analyst-manager":
+      statistical-significance: "p<0.01"  # Stricter than standard p<0.05
+      data-completeness: ">95%"  # Stricter than standard >90%
+      reproducibility: "fully-automated"
+      peer-review: "mandatory-and-documented"
+    
+    "@research-manager":
+      source-validation: "multiple-independent-sources"
+      currency: "within-7-days"  # Stricter than standard within-30-days
+      credibility: "verified-and-documented"
+      coverage: "comprehensive-and-balanced"
+    
+    "@writer-manager":
+      seo-optimization: ">90%"  # Stricter than standard >80%
+      brand-consistency: "100%"
+      accessibility: "WCAG-AAA-compliance"  # Stricter than AA
+      audience-appropriateness: "validated-and-tested"
+
+  communication-protocols:
+    status-updates:
+      frequency: "real-time"  # More frequent than standard daily
+      format: "structured-json-with-validation"
+      encryption: "required"
+    
+    milestone-reports:
+      frequency: "daily"  # More frequent than standard bi-daily
+      format: "comprehensive-markdown-with-metrics"
+      stakeholder-notification: "automated"
+
+# MCP Server Configuration
+mcp-servers:
+  filesystem:
+    enabled: true
+    max-file-size: "100MB"
+    allowed-paths: ["/workspace"]  # Restricted to workspace only
+    blocked-paths: ["/etc", "/usr", "/bin", "/sbin", "/home", "/dev"]
+    audit-logging: true  # Required for production
+    encryption: "required"
+  
+  web-browser:
+    enabled: true
+    headless: true  # Required for production
+    rate-limit: "10 requests/minute"
+    allowed-domains: [
+      "*.github.com",
+      "*.stackoverflow.com",
+      "*.wikipedia.org",
+      "*.kaggle.com",
+      "*.crunchbase.com"
+    ]  # Restricted domain list
+    blocked-domains: ["*.malicious.com", "*.phishing.com"]
+    security-scanning: true  # Required for production
+    user-agent: "Archi3-Production-Browser/1.0"
+  
+  database:
+    enabled: true
+    connection-string: "${DATABASE_URL}"  # Environment variable
+    max-connections: 5
+    ssl-required: true  # Required for production
+    audit-queries: true  # Required for production
+    query-timeout: "30s"
+    connection-pooling: true
+  
+  git:
+    enabled: true
+    require-pull-request: true  # Required for production
+    audit-commits: true  # Required for production
+    max-commit-size: "10MB"
+    branch-protection: true
+    signed-commits: "required"
+  
+  api-gateway:
+    enabled: true
+    mock-external-apis: false  # Disabled for production
+    rate-limit: "200/hour"  # Stricter limits
+    timeout: "30s"
+    circuit-breaker: true
+    retry-policy: "exponential-backoff"
+
+# Security Configuration Overrides
+security-overrides:
+  authentication:
+    multi-factor-authentication:
+      enabled: true  # Required for production
+      required-for: ["admin-operations", "sensitive-data-access", "policy-changes", "deployments"]
+      methods: ["totp", "hardware-key"]
+      backup-codes: true
+    
+    session-timeout: "4-hours"  # Stricter than standard 8-hours
+    password-policy: "enterprise-grade-plus"
+    failed-login-lockout: "5-attempts"
+  
+  authorization:
+    role-based-access-control:
+      least-privilege: true  # Strict enforcement
+      admin-operations: "restricted-to-admins"
+      audit-all-access: true
+    
+    agent-specific-permissions:
+      "@coder-manager":
+        filesystem: ["read", "write", "execute"]  # No delete in production
+        mcp-servers: ["filesystem", "git", "api-gateway"]  # Restricted list
+  
+  data-protection:
+    encryption:
+      at-rest: "required"  # Required for production
+      in-transit: "required"  # Required for production
+      algorithm: "AES-256-GCM"
+      key-rotation: "30-days"  # More frequent rotation
+    
+    data-classification:
+      internal: "encryption-required"
+      confidential: "encryption-plus-access-control"
+      restricted: "encryption-plus-audit-plus-mfa"
+  
+  audit-logging:
+    enabled: true  # Required for production
+    log-level: "info"
+    sensitive-data-masking: true
+    log-retention: "7-years"
+    tamper-protection: true
+
+# Network Security Overrides
+network-security:
+  firewall-rules:
+    inbound:
+      - "port-443: https-traffic"
+      - "port-22: ssh-admin-access"
+      - "port-8080: internal-api"
+      - "port-9090: monitoring"
+    
+    outbound:
+      - "port-443: external-api-calls"
+      - "port-53: dns-resolution"
+      - "port-80: http-redirects"
+    
+    blocked:
+      - "all-other-ports"
+      - "suspicious-ip-ranges"
+      - "known-malicious-domains"
+  
+  vpn-access:
+    enabled: true  # Required for production
+    protocols: ["WireGuard"]  # Preferred protocol
+    authentication: "certificate-based"
+    encryption: "AES-256"
+    access-control: "strict-role-based"
+  
+  intrusion-detection:
+    enabled: true  # Required for production
+    detection-methods: ["signature-based", "anomaly-based", "behavioral-analysis"]
+    response-actions: ["alert", "block", "isolate"]
+    false-positive-handling: "machine-learning-adaptation"
+
+# Compliance Configuration
+compliance:
+  standards:
+    gdpr:
+      enabled: true  # Required for production
+      requirements:
+        - "data-subject-rights"
+        - "consent-management"
+        - "data-portability"
+        - "right-to-be-forgotten"
+        - "privacy-impact-assessments"
+      implementation:
+        - "data-classification-system"
+        - "consent-tracking"
+        - "data-retention-policies"
+        - "comprehensive-audit-logging"
+    
+    soc2:
+      enabled: true  # Required for production
+      trust-principles:
+        - "security"
+        - "availability"
+        - "processing-integrity"
+        - "confidentiality"
+        - "privacy"
+      controls:
+        - "comprehensive-access-controls"
+        - "continuous-system-monitoring"
+        - "strict-change-management"
+        - "automated-incident-response"
+    
+    iso27001:
+      enabled: true  # Required for production
+      requirements:
+        - "information-security-management-system"
+        - "comprehensive-risk-assessment"
+        - "implemented-security-controls"
+        - "continuous-improvement"
+      implementation:
+        - "comprehensive-security-policies"
+        - "enterprise-risk-management"
+        - "full-control-implementation"
+        - "regular-audit-and-review"
+  
+  regulatory-compliance:
+    data-residency:
+      enabled: true
+      regions: ["EU", "US", "APAC"]
+      data-localization: "required"
+      cross-border-transfers: "adequacy-decisions-only"
+    
+    industry-standards:
+      healthcare: "HIPAA-compliance-plus"
+      financial: "PCI-DSS-compliance-plus"
+      government: "FISMA-compliance-plus"
+      education: "FERPA-compliance-plus"
+
+# Performance Monitoring Overrides
+performance-monitoring:
+  metrics:
+    response-time:
+      target: "<100ms"  # Stricter than standard <200ms
+      alert-threshold: ">200ms"  # Stricter than standard >500ms
+      critical-threshold: ">500ms"  # Stricter than standard >1000ms
+    
+    throughput:
+      target: ">2000 requests/hour"  # Higher than standard >1000
+      alert-threshold: "<1000 requests/hour"  # Stricter than standard <500
+      critical-threshold: "<500 requests/hour"  # Stricter than standard <100
+    
+    error-rate:
+      target: "<0.5%"  # Stricter than standard <1%
+      alert-threshold: ">2%"  # Stricter than standard >5%
+      critical-threshold: ">5%"  # Stricter than standard >10%
+    
+    availability:
+      target: ">99.9%"
+      alert-threshold: "<99.5%"
+      critical-threshold: "<99%"
+  
+  alerting:
+    enabled: true  # Required for production
+    channels: ["email", "slack", "webhook", "sms", "pagerduty"]
+    escalation:
+      - "immediate": "critical-thresholds"
+      - "2-minutes": "alert-thresholds"
+      - "5-minutes": "warning-thresholds"
+      - "15-minutes": "info-thresholds"
+
+# Production Tools and Utilities
+production-tools:
+  monitoring:
+    enabled: true
+    metrics-collection: "comprehensive"
+    log-aggregation: true
+    distributed-tracing: true
+    performance-profiling: true
+  
+  backup:
+    enabled: true
+    frequency: "hourly"
+    retention: "30-days"
+    encryption: "required"
+    offsite-storage: true
+  
+  disaster-recovery:
+    enabled: true
+    rto: "1-hour"  # Recovery Time Objective
+    rpo: "15-minutes"  # Recovery Point Objective
+    automated-failover: true
+    testing-frequency: "monthly"
+  
+  security-scanning:
+    enabled: true
+    vulnerability-scanning: "daily"
+    penetration-testing: "quarterly"
+    code-analysis: "continuous"
+    dependency-checking: "daily"
+
+# Policy Validation Rules
+validation:
+  schema-version: "1.0.0"
+  required-sections:
+    - "environment-settings"
+    - "agent-overrides"
+    - "mcp-servers"
+    - "security-overrides"
+    - "network-security"
+    - "compliance"
+    - "performance-monitoring"
+    - "production-tools"
+  
+  custom-rules:
+    - "security-enhancement": "must-have-enhanced-security-measures"
+    - "compliance-requirements": "must-meet-all-applicable-standards"
+    - "monitoring-comprehensive": "must-have-comprehensive-monitoring"
+    - "backup-disaster-recovery": "must-have-robust-backup-and-dr"
+    - "performance-targets": "must-be-stricter-than-development"

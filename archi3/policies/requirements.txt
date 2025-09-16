@@ -1,0 +1,21 @@
+# Archi3 Policy System Requirements
+## Python dependencies for policy management tools
+
+# Core dependencies
+PyYAML>=6.0
+jsonschema>=4.0.0
+
+# Optional dependencies for enhanced functionality
+pyyaml-include>=1.3
+pyyaml-env-tag>=0.1
+
+# Development dependencies
+pytest>=7.0.0
+pytest-cov>=4.0.0
+black>=22.0.0
+flake8>=5.0.0
+mypy>=1.0.0
+
+# Documentation dependencies
+sphinx>=5.0.0
+sphinx-rtd-theme>=1.0.0

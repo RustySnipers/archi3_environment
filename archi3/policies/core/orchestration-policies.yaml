@@ -1,0 +1,588 @@
+# Archi3 Orchestration Policies
+## Task Delegation, Workflow Management, and Quality Standards
+
+version: "1.0.0"
+metadata:
+  name: "orchestration-policies"
+  description: "Task delegation, workflow management, and orchestration rules"
+  lastUpdated: "2024-01-20T10:00:00Z"
+  author: "Archi3 System"
+
+# Task Classification Framework
+task-classification:
+  complexity-levels:
+    simple:
+      description: "Single domain expertise, clear requirements, minimal dependencies"
+      characteristics:
+        - well-defined-scope: true
+        - single-domain: true
+        - minimal-dependencies: true
+        - short-timeline: "hours-to-2-days"
+        - standard-output: true
+      examples:
+        - "code-bug-fix"
+        - "data-visualization"
+        - "product-description"
+        - "technical-documentation-update"
+        - "market-price-research"
+      routing-logic: "manager-to-single-specialist"
+      quality-gates: ["requirements-validation", "output-review"]
+      timeline: "1-2-days"
+      resource-requirements: "low"
+
+    moderate:
+      description: "Multi-faceted requirements, cross-functional coordination"
+      characteristics:
+        - multi-faceted-requirements: true
+        - cross-functional-coordination: true
+        - medium-timeline: "3-7-days"
+        - integration-required: "2-3-specialists"
+        - quality-validation: "cross-components"
+      examples:
+        - "feature-development-ui-backend"
+        - "market-analysis-competitive-intelligence"
+        - "technical-article-research-writing"
+        - "dashboard-development-data-analysis"
+        - "api-documentation-code-examples"
+      routing-logic: "manager-coordination-2-3-specialists"
+      quality-gates: ["requirements-validation", "design-review", "integration-testing", "output-review"]
+      timeline: "3-7-days"
+      resource-requirements: "medium"
+
+    complex:
+      description: "Cross-domain expertise, significant interdependencies"
+      characteristics:
+        - cross-domain-expertise: true
+        - significant-interdependencies: true
+        - extended-timeline: "1-plus-weeks"
+        - multiple-deliverable-types: true
+        - high-coordination-overhead: true
+      examples:
+        - "complete-application-development"
+        - "market-entry-strategy-analysis-content"
+        - "research-report-technical-validation-publication"
+        - "product-launch-development-analysis-marketing"
+        - "system-migration-documentation-training"
+      routing-logic: "primary-manager-supporting-manager-coordination"
+      quality-gates: ["requirements-validation", "architecture-review", "design-review", "implementation-review", "integration-testing", "user-acceptance", "deployment-review"]
+      timeline: "1-plus-weeks"
+      resource-requirements: "high"
+
+    enterprise:
+      description: "Organization-wide impact, multiple project phases"
+      characteristics:
+        - organization-wide-impact: true
+        - multiple-project-phases: true
+        - long-timeline: "weeks-to-months"
+        - extensive-stakeholder-coordination: true
+        - complex-quality-assurance: true
+      examples:
+        - "digital-transformation-initiative"
+        - "new-product-development-lifecycle"
+        - "comprehensive-market-research-go-to-market"
+        - "platform-migration-user-education-support"
+        - "compliance-audit-remediation-program"
+      routing-logic: "full-orchestration-phase-based-coordination"
+      quality-gates: ["requirements-validation", "stakeholder-approval", "architecture-review", "design-review", "implementation-review", "integration-testing", "performance-testing", "security-testing", "user-acceptance", "deployment-review", "post-deployment-validation"]
+      timeline: "weeks-to-months"
+      resource-requirements: "enterprise"
+
+# Agent Selection Logic
+agent-selection:
+  primary-domain-classification:
+    data-analytics-focus:
+      trigger-keywords: ["analyze", "data", "metrics", "insights", "predict", "model", "statistics", "dashboard", "report"]
+      primary-manager: "@analyst-manager"
+      supporting-managers: ["@research-manager", "@writer-manager"]
+    
+    code-technical-focus:
+      trigger-keywords: ["build", "develop", "code", "implement", "api", "database", "frontend", "backend", "system", "application"]
+      primary-manager: "@coder-manager"
+      supporting-managers: ["@analyst-manager", "@research-manager"]
+    
+    information-research-focus:
+      trigger-keywords: ["research", "find", "investigate", "market-analysis", "competitive", "trends", "intelligence", "study"]
+      primary-manager: "@research-manager"
+      supporting-managers: ["@analyst-manager", "@writer-manager"]
+    
+    content-communication-focus:
+      trigger-keywords: ["write", "content", "documentation", "blog", "marketing", "guide", "manual", "communication", "story"]
+      primary-manager: "@writer-manager"
+      supporting-managers: ["@research-manager", "@analyst-manager"]
+    
+    book-development-focus:
+      trigger-keywords: ["book", "novel", "manuscript", "publishing", "narrative", "story", "chapter", "character"]
+      primary-manager: "@book-manager"
+      supporting-managers: ["@writer-manager", "@research-manager"]
+
+  multi-domain-tasks:
+    development-analysis:
+      primary-manager: "@coder-manager"
+      supporting-manager: "@analyst-manager"
+      coordination-strategy: "parallel-with-integration"
+    
+    research-writing:
+      primary-manager: "@research-manager"
+      supporting-manager: "@writer-manager"
+      coordination-strategy: "sequential-with-feedback"
+    
+    analysis-writing:
+      primary-manager: "@analyst-manager"
+      supporting-manager: "@writer-manager"
+      coordination-strategy: "sequential-with-validation"
+    
+    development-research:
+      primary-manager: "@coder-manager"
+      supporting-manager: "@research-manager"
+      coordination-strategy: "parallel-with-coordination"
+    
+    all-domains:
+      primary-manager: "context-dependent"
+      supporting-managers: "all-relevant"
+      coordination-strategy: "full-orchestration"
+
+  specialist-selection:
+    development-team:
+      backend-logic:
+        keywords: ["api", "server", "backend", "database", "authentication", "integration"]
+        specialist: "@backend-developer"
+      
+      ui-frontend:
+        keywords: ["ui", "frontend", "interface", "user-experience", "responsive", "design"]
+        specialist: "@frontend-developer"
+      
+      data-storage:
+        keywords: ["database", "schema", "query", "optimization", "data-modeling"]
+        specialist: "@database-engineer"
+      
+      deployment-infrastructure:
+        keywords: ["deploy", "ci-cd", "infrastructure", "monitoring", "devops"]
+        specialist: "@devops-engineer"
+      
+      full-stack:
+        keywords: ["full-stack", "complete-application", "end-to-end"]
+        specialists: ["@backend-developer", "@frontend-developer", "@database-engineer"]
+        coordination: "parallel-with-integration"
+
+    analysis-team:
+      business-metrics:
+        keywords: ["kpi", "dashboard", "business-intelligence", "metrics", "reporting"]
+        specialist: "@bi-analyst"
+      
+      predictive-modeling:
+        keywords: ["ml", "ai", "predictive", "model", "machine-learning", "algorithm"]
+        specialist: "@ml-engineer"
+      
+      statistical-testing:
+        keywords: ["statistical", "test", "hypothesis", "experiment", "analysis"]
+        specialist: "@statistical-analyst"
+      
+      data-visualization:
+        keywords: ["visualization", "chart", "graph", "dashboard", "storytelling"]
+        specialist: "@visualization-specialist"
+      
+      comprehensive-analysis:
+        keywords: ["comprehensive", "full-analysis", "complete-study"]
+        specialists: ["@bi-analyst", "@ml-engineer", "@statistical-analyst", "@visualization-specialist"]
+        coordination: "sequential-with-integration"
+
+    research-team:
+      academic-scholarly:
+        keywords: ["academic", "scholarly", "literature", "research-paper", "citation"]
+        specialist: "@academic-researcher"
+      
+      market-business:
+        keywords: ["market", "business", "competitive", "industry", "trends"]
+        specialist: "@market-researcher"
+      
+      technical-documentation:
+        keywords: ["technical", "documentation", "system", "architecture", "specification"]
+        specialist: "@technical-researcher"
+      
+      current-events:
+        keywords: ["news", "current", "breaking", "real-time", "events"]
+        specialist: "@news-researcher"
+      
+      multi-domain-research:
+        keywords: ["comprehensive", "multi-domain", "complete-research"]
+        specialists: ["@academic-researcher", "@market-researcher", "@technical-researcher", "@news-researcher"]
+        coordination: "parallel-with-synthesis"
+
+    writing-team:
+      documentation-manuals:
+        keywords: ["documentation", "manual", "guide", "technical-writing", "api-guide"]
+        specialist: "@technical-writer"
+      
+      creative-storytelling:
+        keywords: ["creative", "story", "narrative", "brand-storytelling", "content"]
+        specialist: "@creative-writer"
+      
+      marketing-sales:
+        keywords: ["marketing", "sales", "ad-copy", "landing-page", "promotional"]
+        specialist: "@marketing-copywriter"
+      
+      academic-formal:
+        keywords: ["academic", "research-paper", "essay", "formal-writing", "report"]
+        specialist: "@academic-writer"
+      
+      multi-format-content:
+        keywords: ["multi-format", "comprehensive-content", "campaign"]
+        specialists: ["@technical-writer", "@creative-writer", "@marketing-copywriter", "@academic-writer"]
+        coordination: "parallel-with-brand-consistency"
+
+    book-writing-team:
+      book-structure:
+        keywords: ["book-structure", "chapter-organization", "narrative-architecture", "plot"]
+        specialist: "@book-architect"
+      
+      character-consistency:
+        keywords: ["character", "consistency", "continuity", "timeline", "flow"]
+        specialist: "@continuity-manager"
+      
+      formatting-publishing:
+        keywords: ["formatting", "publishing", "typography", "layout", "multi-format"]
+        specialist: "@book-formatter"
+      
+      genre-market:
+        keywords: ["genre", "market", "reader-expectations", "commercial", "positioning"]
+        specialist: "@genre-specialist"
+      
+      complete-book-development:
+        keywords: ["complete-book", "full-manuscript", "publishing-pipeline"]
+        specialists: ["@book-architect", "@continuity-manager", "@book-formatter", "@genre-specialist"]
+        coordination: "sequential-with-continuous-review"
+
+# Coordination Protocols
+coordination-protocols:
+  execution-strategies:
+    sequential-execution:
+      description: "Tasks must be completed in order due to dependencies"
+      triggers:
+        - "output-from-agent-a-is-input-for-agent-b"
+        - "quality-validation-must-occur-before-next-phase"
+        - "resource-constraints-prevent-parallel-work"
+        - "risk-management-requires-staged-approach"
+      examples:
+        - "database-schema → backend-api → frontend-integration"
+        - "research-findings → analysis → report-writing"
+        - "requirements-gathering → architecture → implementation"
+        - "market-research → strategy-development → content-creation"
+      coordination-rules:
+        - "explicit-handoff-documentation"
+        - "quality-gate-validation"
+        - "timeline-coordination"
+        - "dependency-tracking"
+
+    parallel-execution:
+      description: "Independent work streams with minimal dependencies"
+      triggers:
+        - "independent-work-streams-with-minimal-dependencies"
+        - "time-optimization-is-critical"
+        - "sufficient-resources-available-for-concurrent-work"
+        - "integration-can-occur-after-parallel-completion"
+      examples:
+        - "frontend-backend-development-with-api-specification"
+        - "content-writing-visual-design-with-brand-guidelines"
+        - "data-analysis-visualization-with-dataset-specification"
+        - "research-writing-with-ongoing-information-sharing"
+      coordination-rules:
+        - "shared-specification-documentation"
+        - "regular-synchronization-points"
+        - "integration-planning"
+        - "conflict-resolution-procedures"
+
+  dependency-management:
+    hard-dependencies:
+      description: "Sequential execution required"
+      management-strategy: "explicit-dependency-tracking"
+      validation-required: "completion-confirmation"
+      examples:
+        - "database-schema → backend-api → frontend-integration"
+        - "research-findings → analysis → report-writing"
+        - "requirements-gathering → architecture → implementation"
+        - "market-research → strategy-development → content-creation"
+
+    soft-dependencies:
+      description: "Parallel execution with coordination"
+      management-strategy: "coordination-points"
+      validation-required: "integration-testing"
+      examples:
+        - "frontend-backend-development-with-api-specification"
+        - "content-writing-visual-design-with-brand-guidelines"
+        - "data-analysis-visualization-with-dataset-specification"
+        - "research-writing-with-ongoing-information-sharing"
+
+# Quality Assurance Framework
+quality-assurance:
+  validation-levels:
+    level-1-agent-self-validation:
+      description: "Individual agent quality control"
+      requirements:
+        - "domain-specific-standards-compliance"
+        - "self-validation-checks"
+        - "compliance-verification"
+        - "style-guide-adherence"
+      validation-criteria:
+        - "requirements-addressed"
+        - "quality-standards-met"
+        - "methodology-compliance"
+        - "output-format-correct"
+
+    level-2-manager-review:
+      description: "Manager-level quality assurance"
+      requirements:
+        - "cross-specialist-consistency-checking"
+        - "integration-testing-and-validation"
+        - "manager-level-quality-assurance"
+        - "approval-workflow"
+      validation-criteria:
+        - "specialist-outputs-integrated"
+        - "consistency-across-components"
+        - "integration-testing-passed"
+        - "manager-approval-received"
+
+    level-3-orchestrator-synthesis:
+      description: "System-wide quality validation"
+      requirements:
+        - "cross-domain-integration-and-validation"
+        - "user-requirement-fulfillment-verification"
+        - "final-quality-assurance"
+        - "delivery-preparation"
+      validation-criteria:
+        - "cross-domain-integration-complete"
+        - "user-requirements-fulfilled"
+        - "final-quality-assurance-passed"
+        - "delivery-ready"
+
+  quality-gates:
+    requirements-gate:
+      criteria:
+        - "requirements-fully-addressed"
+        - "scope-clarity-confirmed"
+        - "success-criteria-defined"
+        - "stakeholder-approval-received"
+      approval-authority: "project-manager"
+      validation-methods: ["requirements-review", "stakeholder-signoff"]
+
+    design-gate:
+      criteria:
+        - "architecture-approved"
+        - "design-reviewed"
+        - "technical-feasibility-confirmed"
+        - "resource-requirements-validated"
+      approval-authority: "technical-lead"
+      validation-methods: ["architecture-review", "design-review", "feasibility-study"]
+
+    implementation-gate:
+      criteria:
+        - "code-quality-standards-met"
+        - "testing-complete"
+        - "documentation-current"
+        - "performance-requirements-met"
+      approval-authority: "quality-lead"
+      validation-methods: ["code-review", "testing-validation", "documentation-review"]
+
+    deployment-gate:
+      criteria:
+        - "performance-tested"
+        - "security-validated"
+        - "user-acceptance-achieved"
+        - "deployment-readiness-confirmed"
+      approval-authority: "stakeholder"
+      validation-methods: ["performance-testing", "security-audit", "user-acceptance-testing"]
+
+# Resource Management
+resource-management:
+  capacity-assessment:
+    workload-analysis:
+      enabled: true
+      metrics: ["current-tasks", "estimated-completion-times", "skill-match-assessment"]
+      frequency: "real-time"
+    
+    performance-metrics:
+      enabled: true
+      metrics: ["quality-history", "completion-rates", "user-satisfaction"]
+      frequency: "daily"
+
+  dynamic-allocation:
+    real-time-monitoring:
+      enabled: true
+      metrics: ["agent-capacity", "queue-length", "response-times"]
+      alert-thresholds:
+        capacity: "80%"
+        queue-length: "10-tasks"
+        response-time: "500ms"
+    
+    intelligent-queuing:
+      enabled: true
+      algorithm: "priority-based-with-capacity"
+      overflow-strategy: "alternative-agent-assignment"
+    
+    skill-development:
+      enabled: true
+      cross-training: "recommended"
+      skill-gap-analysis: "monthly"
+      training-priorities: "demand-based"
+
+# Communication Protocols
+communication-protocols:
+  status-reporting:
+    hierarchy: "specialist-agents → manager-agents → main-orchestrator → user"
+    frequency:
+      simple-tasks: "daily-summaries"
+      moderate-tasks: "bi-daily-with-milestone-reports"
+      complex-tasks: "daily-with-weekly-comprehensive-reviews"
+      enterprise-tasks: "real-time-with-scheduled-stakeholder-updates"
+    
+    format-standards:
+      status-updates: "structured-json"
+      milestone-reports: "comprehensive-markdown"
+      quality-gates: "validation-report"
+      final-deliverables: "integrated-deliverable"
+
+  cross-agent-communication:
+    information-sharing:
+      format: "structured-json-messaging"
+      required-fields: ["task-id", "dependency-id", "quality-requirements", "success-criteria", "timeline", "milestone"]
+      validation: "schema-based"
+    
+    conflict-resolution:
+      levels:
+        - "automated-resolution"
+        - "manager-mediation"
+        - "orchestrator-arbitration"
+        - "human-escalation"
+      timeouts:
+        automated: "15-minutes"
+        manager: "1-hour"
+        orchestrator: "4-hours"
+        human: "24-hours"
+
+# Performance Optimization
+performance-optimization:
+  efficiency-improvement:
+    pattern-recognition:
+      enabled: true
+      learning-algorithm: "task-pattern-analysis"
+      optimization-target: "routing-speed"
+    
+    template-reuse:
+      enabled: true
+      template-library: "successful-coordination-patterns"
+      reuse-strategy: "similarity-matching"
+    
+    predictive-allocation:
+      enabled: true
+      prediction-model: "resource-demand-forecasting"
+      optimization-target: "resource-utilization"
+
+  quality-enhancement:
+    peer-review-integration:
+      enabled: true
+      review-process: "cross-agent-validation"
+      quality-improvement: "continuous"
+    
+    best-practice-sharing:
+      enabled: true
+      knowledge-transfer: "cross-agent"
+      methodology-standardization: "domain-specific"
+    
+    external-validation:
+      enabled: true
+      expert-review: "subject-matter-experts"
+      validation-frequency: "major-milestones"
+
+# Error Handling and Recovery
+error-handling:
+  common-failure-modes:
+    agent-unavailability:
+      detection: "automatic-non-responsiveness"
+      recovery-protocol:
+        - "task-reassignment-to-alternative-agent"
+        - "timeline-adjustment-and-stakeholder-notification"
+        - "quality-assurance-for-continuity-maintenance"
+        - "root-cause-analysis-and-prevention"
+    
+    quality-standard-failures:
+      detection: "quality-gate-validation"
+      recovery-protocol:
+        - "quality-issue-identification-and-documentation"
+        - "root-cause-analysis-and-corrective-action-planning"
+        - "rework-assignment-with-enhanced-quality-controls"
+        - "process-improvement-implementation"
+    
+    resource-constraint-issues:
+      detection: "resource-monitoring"
+      recovery-protocol:
+        - "resource-bottleneck-identification-and-impact-assessment"
+        - "priority-reassessment-and-timeline-adjustment"
+        - "alternative-resource-identification-and-allocation"
+        - "stakeholder-communication-and-expectation-management"
+
+  recovery-strategies:
+    automatic-recovery:
+      enabled: true
+      strategies: ["retry-with-backoff", "alternative-agent-assignment", "graceful-degradation"]
+    
+    manual-intervention:
+      enabled: true
+      escalation-triggers: ["repeated-failures", "critical-path-blocking", "quality-standards-unmet"]
+    
+    learning-integration:
+      enabled: true
+      failure-analysis: "pattern-recognition"
+      prevention-strategies: "proactive-monitoring"
+
+# Continuous Improvement Framework
+continuous-improvement:
+  learning-mechanisms:
+    outcome-analysis:
+      enabled: true
+      metrics: ["success-rate", "quality-scores", "timeline-accuracy", "user-satisfaction"]
+      frequency: "weekly"
+    
+    efficiency-monitoring:
+      enabled: true
+      metrics: ["resource-utilization", "coordination-overhead", "processing-times"]
+      frequency: "daily"
+    
+    quality-trending:
+      enabled: true
+      metrics: ["quality-gate-pass-rates", "defect-rates", "rework-frequency"]
+      frequency: "weekly"
+
+  system-evolution:
+    agent-capability-enhancement:
+      enabled: true
+      skill-development: "demand-based"
+      specialization-expansion: "market-driven"
+    
+    process-optimization:
+      enabled: true
+      workflow-improvement: "data-driven"
+      methodology-advancement: "best-practice-integration"
+    
+    technology-integration:
+      enabled: true
+      tool-enhancement: "capability-expansion"
+      platform-advancement: "feature-integration"
+
+# Policy Validation Rules
+validation:
+  schema-version: "1.0.0"
+  required-sections:
+    - "task-classification"
+    - "agent-selection"
+    - "coordination-protocols"
+    - "quality-assurance"
+    - "resource-management"
+    - "communication-protocols"
+    - "performance-optimization"
+    - "error-handling"
+    - "continuous-improvement"
+  
+  custom-rules:
+    - "complexity-levels": "must-have-simple-moderate-complex-enterprise"
+    - "agent-selection-logic": "must-have-trigger-keywords-and-routing"
+    - "quality-gates": "must-have-criteria-and-approval-authority"
+    - "coordination-protocols": "must-have-sequential-and-parallel-strategies"

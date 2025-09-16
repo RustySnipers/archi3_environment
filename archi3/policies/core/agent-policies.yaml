@@ -1,0 +1,761 @@
+# Archi3 Agent Policies
+## Agent Behavior, Capabilities, and Coordination Rules
+
+version: "1.0.0"
+metadata:
+  name: "agent-policies"
+  description: "Core agent behavior and capability definitions"
+  lastUpdated: "2024-01-20T10:00:00Z"
+  author: "Archi3 System"
+
+# Agent Definitions
+agents:
+  managers:
+    analyst-manager:
+      id: "@analyst-manager"
+      type: "manager"
+      tier: 2
+      description: "Data analysis, ML, statistical work, visualization coordination"
+      capabilities:
+        - data-analysis
+        - machine-learning
+        - statistical-modeling
+        - visualization-coordination
+        - business-intelligence
+      specializations:
+        - bi-analyst
+        - ml-engineer
+        - statistical-analyst
+        - visualization-specialist
+      quality-standards:
+        statistical-significance: "p<0.05"
+        data-completeness: ">90%"
+        reproducibility: "required"
+        peer-review: "mandatory"
+      communication-protocols:
+        status-updates: "daily"
+        milestone-reports: "bi-daily"
+        quality-gates: "per-phase"
+      resource-requirements:
+        cpu: "medium"
+        memory: "high"
+        storage: "high"
+        network: "medium"
+
+    coder-manager:
+      id: "@coder-manager"
+      type: "manager"
+      tier: 2
+      description: "Software development, architecture, technical implementation"
+      capabilities:
+        - software-development
+        - system-architecture
+        - technical-implementation
+        - code-review
+        - technical-documentation
+      specializations:
+        - backend-developer
+        - frontend-developer
+        - database-engineer
+        - devops-engineer
+      quality-standards:
+        code-coverage: ">85%"
+        performance: "<200ms"
+        security: "OWASP-compliance"
+        documentation: "complete"
+      communication-protocols:
+        status-updates: "daily"
+        milestone-reports: "bi-daily"
+        quality-gates: "per-phase"
+      resource-requirements:
+        cpu: "high"
+        memory: "medium"
+        storage: "medium"
+        network: "high"
+
+    research-manager:
+      id: "@research-manager"
+      type: "manager"
+      tier: 2
+      description: "Information gathering, fact-checking, market intelligence"
+      capabilities:
+        - information-gathering
+        - fact-checking
+        - market-intelligence
+        - competitive-analysis
+        - trend-analysis
+      specializations:
+        - academic-researcher
+        - market-researcher
+        - technical-researcher
+        - news-researcher
+      quality-standards:
+        source-validation: "multiple-sources"
+        currency: "within-30-days"
+        credibility: "verified"
+        coverage: "comprehensive"
+      communication-protocols:
+        status-updates: "daily"
+        milestone-reports: "bi-daily"
+        quality-gates: "per-phase"
+      resource-requirements:
+        cpu: "medium"
+        memory: "medium"
+        storage: "medium"
+        network: "high"
+
+    writer-manager:
+      id: "@writer-manager"
+      type: "manager"
+      tier: 2
+      description: "Content creation, documentation, communication materials"
+      capabilities:
+        - content-creation
+        - documentation
+        - communication-materials
+        - brand-consistency
+        - multi-format-content
+      specializations:
+        - technical-writer
+        - creative-writer
+        - marketing-copywriter
+        - academic-writer
+      quality-standards:
+        brand-consistency: "100%"
+        seo-optimization: ">80%"
+        accessibility: "WCAG-compliance"
+        audience-appropriateness: "verified"
+      communication-protocols:
+        status-updates: "daily"
+        milestone-reports: "bi-daily"
+        quality-gates: "per-phase"
+      resource-requirements:
+        cpu: "low"
+        memory: "low"
+        storage: "medium"
+        network: "medium"
+
+    book-manager:
+      id: "@book-manager"
+      type: "manager"
+      tier: 2
+      description: "Complete book development, publishing pipeline, long-form content orchestration"
+      capabilities:
+        - book-development
+        - publishing-pipeline
+        - long-form-content
+        - narrative-architecture
+        - market-positioning
+      specializations:
+        - book-architect
+        - continuity-manager
+        - book-formatter
+        - genre-specialist
+      quality-standards:
+        narrative-consistency: "100%"
+        character-development: "comprehensive"
+        market-readiness: "verified"
+        publishing-standards: "industry-compliant"
+      communication-protocols:
+        status-updates: "daily"
+        milestone-reports: "weekly"
+        quality-gates: "per-chapter"
+      resource-requirements:
+        cpu: "medium"
+        memory: "high"
+        storage: "high"
+        network: "medium"
+
+  specialists:
+    # Development Team
+    backend-developer:
+      id: "@backend-developer"
+      type: "specialist"
+      tier: 3
+      manager: "@coder-manager"
+      description: "Server logic, APIs, databases, authentication"
+      capabilities:
+        - server-logic
+        - api-development
+        - database-integration
+        - authentication-systems
+        - performance-optimization
+      quality-standards:
+        api-response-time: "<200ms"
+        error-handling: "comprehensive"
+        security: "OWASP-top-10"
+        scalability: "horizontal-scaling"
+      mcp-permissions:
+        filesystem: ["read", "write", "execute"]
+        git: ["read", "write"]
+        api-gateway: ["full"]
+
+    frontend-developer:
+      id: "@frontend-developer"
+      type: "specialist"
+      tier: 3
+      manager: "@coder-manager"
+      description: "UI/UX, client-side code, responsive design"
+      capabilities:
+        - ui-development
+        - ux-design
+        - client-side-logic
+        - responsive-design
+        - accessibility-implementation
+      quality-standards:
+        cross-browser-compatibility: "95%"
+        mobile-responsiveness: "100%"
+        accessibility: "WCAG-AA"
+        performance: "lighthouse-score>90"
+      mcp-permissions:
+        filesystem: ["read", "write"]
+        git: ["read", "write"]
+        api-gateway: ["read"]
+
+    database-engineer:
+      id: "@database-engineer"
+      type: "specialist"
+      tier: 3
+      manager: "@coder-manager"
+      description: "Schema design, query optimization, data modeling"
+      capabilities:
+        - schema-design
+        - query-optimization
+        - data-modeling
+        - performance-tuning
+        - backup-recovery
+      quality-standards:
+        query-performance: "<100ms"
+        data-integrity: "100%"
+        backup-frequency: "daily"
+        scalability: "10x-growth"
+      mcp-permissions:
+        filesystem: ["read", "write"]
+        database: ["read", "write", "admin"]
+        git: ["read", "write"]
+
+    devops-engineer:
+      id: "@devops-engineer"
+      type: "specialist"
+      tier: 3
+      manager: "@coder-manager"
+      description: "CI/CD, deployment, infrastructure, monitoring"
+      capabilities:
+        - ci-cd-pipelines
+        - deployment-automation
+        - infrastructure-management
+        - monitoring-alerting
+        - disaster-recovery
+      quality-standards:
+        deployment-time: "<10-minutes"
+        uptime: ">99.9%"
+        recovery-time: "<1-hour"
+        security-scanning: "automated"
+      mcp-permissions:
+        filesystem: ["read", "write", "execute"]
+        git: ["read", "write", "admin"]
+        api-gateway: ["full"]
+
+    # Analysis Team
+    bi-analyst:
+      id: "@bi-analyst"
+      type: "specialist"
+      tier: 3
+      manager: "@analyst-manager"
+      description: "Business intelligence, KPIs, dashboards"
+      capabilities:
+        - business-intelligence
+        - kpi-definition
+        - dashboard-creation
+        - reporting-automation
+        - data-visualization
+      quality-standards:
+        data-accuracy: ">95%"
+        report-timeliness: "real-time"
+        visualization-clarity: "user-tested"
+        kpi-relevance: "business-aligned"
+      mcp-permissions:
+        filesystem: ["read"]
+        database: ["read"]
+        api-gateway: ["data-apis"]
+
+    ml-engineer:
+      id: "@ml-engineer"
+      type: "specialist"
+      tier: 3
+      manager: "@analyst-manager"
+      description: "Machine learning, AI models, predictive analytics"
+      capabilities:
+        - machine-learning
+        - ai-model-development
+        - predictive-analytics
+        - model-optimization
+        - mlops-pipeline
+      quality-standards:
+        model-accuracy: ">90%"
+        prediction-latency: "<1-second"
+        model-explainability: "required"
+        bias-detection: "automated"
+      mcp-permissions:
+        filesystem: ["read", "write"]
+        database: ["read", "write"]
+        api-gateway: ["ml-apis"]
+
+    statistical-analyst:
+      id: "@statistical-analyst"
+      type: "specialist"
+      tier: 3
+      manager: "@analyst-manager"
+      description: "Statistical tests, experimental design"
+      capabilities:
+        - statistical-testing
+        - experimental-design
+        - hypothesis-testing
+        - data-analysis
+        - statistical-modeling
+      quality-standards:
+        statistical-power: ">80%"
+        significance-level: "p<0.05"
+        effect-size: "reported"
+        methodology: "reproducible"
+      mcp-permissions:
+        filesystem: ["read", "write"]
+        database: ["read", "write"]
+        api-gateway: ["statistical-apis"]
+
+    visualization-specialist:
+      id: "@visualization-specialist"
+      type: "specialist"
+      tier: 3
+      manager: "@analyst-manager"
+      description: "Charts, graphs, data storytelling"
+      capabilities:
+        - data-visualization
+        - chart-creation
+        - data-storytelling
+        - interactive-dashboards
+        - visual-design
+      quality-standards:
+        visual-clarity: "user-tested"
+        accessibility: "WCAG-AA"
+        performance: "real-time"
+        brand-consistency: "100%"
+      mcp-permissions:
+        filesystem: ["read", "write"]
+        api-gateway: ["visualization-apis"]
+
+    # Research Team
+    academic-researcher:
+      id: "@academic-researcher"
+      type: "specialist"
+      tier: 3
+      manager: "@research-manager"
+      description: "Scholarly sources, literature reviews, citations"
+      capabilities:
+        - scholarly-research
+        - literature-review
+        - citation-management
+        - academic-writing
+        - peer-review
+      quality-standards:
+        source-quality: "peer-reviewed"
+        citation-accuracy: "100%"
+        methodology: "rigorous"
+        objectivity: "maintained"
+      mcp-permissions:
+        filesystem: ["read", "write"]
+        web-browser: ["browse"]
+        api-gateway: ["academic-apis"]
+
+    market-researcher:
+      id: "@market-researcher"
+      type: "specialist"
+      tier: 3
+      manager: "@research-manager"
+      description: "Industry analysis, competitive intelligence, trends"
+      capabilities:
+        - industry-analysis
+        - competitive-intelligence
+        - trend-analysis
+        - market-sizing
+        - customer-research
+      quality-standards:
+        data-freshness: "<30-days"
+        source-diversity: ">5-sources"
+        accuracy: "verified"
+        relevance: "business-focused"
+      mcp-permissions:
+        filesystem: ["read", "write"]
+        web-browser: ["browse", "screenshot", "automation"]
+        api-gateway: ["market-apis"]
+
+    technical-researcher:
+      id: "@technical-researcher"
+      type: "specialist"
+      tier: 3
+      manager: "@research-manager"
+      description: "Technical documentation, system analysis"
+      capabilities:
+        - technical-documentation
+        - system-analysis
+        - architecture-research
+        - technology-evaluation
+        - best-practices
+      quality-standards:
+        technical-accuracy: "verified"
+        documentation-completeness: "comprehensive"
+        currency: "up-to-date"
+        applicability: "practical"
+      mcp-permissions:
+        filesystem: ["read", "write"]
+        web-browser: ["browse"]
+        api-gateway: ["technical-apis"]
+
+    news-researcher:
+      id: "@news-researcher"
+      type: "specialist"
+      tier: 3
+      manager: "@research-manager"
+      description: "Current events, real-time information, breaking news"
+      capabilities:
+        - current-events
+        - real-time-information
+        - breaking-news
+        - trend-monitoring
+        - fact-checking
+      quality-standards:
+        timeliness: "real-time"
+        accuracy: "verified"
+        source-credibility: "established"
+        bias-awareness: "acknowledged"
+      mcp-permissions:
+        filesystem: ["read", "write"]
+        web-browser: ["browse", "screenshot"]
+        api-gateway: ["news-apis"]
+
+    # Writing Team
+    technical-writer:
+      id: "@technical-writer"
+      type: "specialist"
+      tier: 3
+      manager: "@writer-manager"
+      description: "Documentation, manuals, API guides, specifications"
+      capabilities:
+        - technical-documentation
+        - api-guides
+        - user-manuals
+        - specifications
+        - procedural-writing
+      quality-standards:
+        clarity: "user-tested"
+        completeness: "comprehensive"
+        accuracy: "technical-review"
+        usability: "intuitive"
+      mcp-permissions:
+        filesystem: ["read", "write"]
+        api-gateway: ["content-apis"]
+
+    creative-writer:
+      id: "@creative-writer"
+      type: "specialist"
+      tier: 3
+      manager: "@writer-manager"
+      description: "Stories, narratives, creative content"
+      capabilities:
+        - storytelling
+        - narrative-development
+        - creative-content
+        - brand-storytelling
+        - emotional-engagement
+      quality-standards:
+        engagement: "user-tested"
+        brand-alignment: "100%"
+        creativity: "original"
+        emotional-impact: "measured"
+      mcp-permissions:
+        filesystem: ["read", "write"]
+        api-gateway: ["content-apis"]
+
+    marketing-copywriter:
+      id: "@marketing-copywriter"
+      type: "specialist"
+      tier: 3
+      manager: "@writer-manager"
+      description: "Ad copy, landing pages, promotional materials"
+      capabilities:
+        - ad-copy
+        - landing-pages
+        - promotional-materials
+        - conversion-optimization
+        - brand-messaging
+      quality-standards:
+        conversion-rate: "industry-standard"
+        seo-optimization: ">80%"
+        brand-consistency: "100%"
+        legal-compliance: "verified"
+      mcp-permissions:
+        filesystem: ["read", "write"]
+        api-gateway: ["marketing-apis"]
+
+    academic-writer:
+      id: "@academic-writer"
+      type: "specialist"
+      tier: 3
+      manager: "@writer-manager"
+      description: "Research papers, essays, formal writing"
+      capabilities:
+        - research-papers
+        - academic-essays
+        - formal-writing
+        - citation-management
+        - peer-review
+      quality-standards:
+        academic-rigor: "peer-reviewed"
+        citation-accuracy: "100%"
+        methodology: "transparent"
+        objectivity: "maintained"
+      mcp-permissions:
+        filesystem: ["read", "write"]
+        api-gateway: ["academic-apis"]
+
+    # Book Writing Team
+    book-architect:
+      id: "@book-architect"
+      type: "specialist"
+      tier: 3
+      manager: "@book-manager"
+      description: "Book structure design, chapter organization, narrative architecture"
+      capabilities:
+        - book-structure
+        - chapter-organization
+        - narrative-architecture
+        - plot-development
+        - pacing-optimization
+      quality-standards:
+        structural-coherence: "expert-reviewed"
+        narrative-flow: "user-tested"
+        chapter-balance: "optimized"
+        pacing: "engaging"
+      mcp-permissions:
+        filesystem: ["read", "write"]
+        api-gateway: ["publishing-apis"]
+
+    continuity-manager:
+      id: "@continuity-manager"
+      type: "specialist"
+      tier: 3
+      manager: "@book-manager"
+      description: "Character/concept consistency, cross-reference management, flow optimization"
+      capabilities:
+        - character-consistency
+        - concept-consistency
+        - cross-reference-management
+        - flow-optimization
+        - timeline-management
+      quality-standards:
+        consistency: "100%"
+        continuity: "verified"
+        timeline-accuracy: "validated"
+        character-development: "coherent"
+      mcp-permissions:
+        filesystem: ["read", "write"]
+        api-gateway: ["publishing-apis"]
+
+    book-formatter:
+      id: "@book-formatter"
+      type: "specialist"
+      tier: 3
+      manager: "@book-manager"
+      description: "Professional formatting, publishing preparation, multi-format optimization"
+      capabilities:
+        - professional-formatting
+        - publishing-preparation
+        - multi-format-optimization
+        - typography
+        - layout-design
+      quality-standards:
+        formatting-consistency: "100%"
+        publishing-readiness: "verified"
+        multi-format-compatibility: "tested"
+        typography-quality: "professional"
+      mcp-permissions:
+        filesystem: ["read", "write"]
+        api-gateway: ["publishing-apis"]
+
+    genre-specialist:
+      id: "@genre-specialist"
+      type: "specialist"
+      tier: 3
+      manager: "@book-manager"
+      description: "Genre expertise, market requirements, reader expectations, commercial positioning"
+      capabilities:
+        - genre-expertise
+        - market-requirements
+        - reader-expectations
+        - commercial-positioning
+        - market-analysis
+      quality-standards:
+        genre-compliance: "100%"
+        market-readiness: "verified"
+        reader-appeal: "tested"
+        commercial-viability: "analyzed"
+      mcp-permissions:
+        filesystem: ["read", "write"]
+        web-browser: ["browse"]
+        api-gateway: ["market-apis"]
+
+# Agent Coordination Rules
+coordination:
+  communication-protocols:
+    status-updates:
+      frequency: "daily"
+      format: "structured-json"
+      required-fields: ["agent-id", "task-id", "status", "progress", "blockers"]
+    
+    milestone-reports:
+      frequency: "bi-daily"
+      format: "comprehensive-markdown"
+      required-fields: ["milestone", "deliverables", "quality-metrics", "next-steps"]
+    
+    quality-gates:
+      frequency: "per-phase"
+      format: "validation-report"
+      required-fields: ["quality-criteria", "test-results", "compliance-status", "approval"]
+
+  conflict-resolution:
+    escalation-levels:
+      - "agent-self-resolution"
+      - "manager-mediation"
+      - "orchestrator-arbitration"
+      - "human-escalation"
+    
+    resolution-timeouts:
+      agent-level: "1-hour"
+      manager-level: "4-hours"
+      orchestrator-level: "8-hours"
+      human-escalation: "24-hours"
+
+  resource-management:
+    load-balancing:
+      enabled: true
+      algorithm: "round-robin-with-capacity"
+      capacity-threshold: "80%"
+    
+    auto-scaling:
+      enabled: true
+      min-instances: 1
+      max-instances: 10
+      scale-up-threshold: "70%"
+      scale-down-threshold: "30%"
+
+# Quality Assurance Framework
+quality-assurance:
+  validation-levels:
+    level-1:
+      name: "agent-self-validation"
+      description: "Individual agent quality control"
+      requirements:
+        - domain-specific-standards
+        - self-validation-checks
+        - compliance-verification
+    
+    level-2:
+      name: "manager-review"
+      description: "Manager-level quality assurance"
+      requirements:
+        - cross-specialist-consistency
+        - integration-testing
+        - manager-approval
+    
+    level-3:
+      name: "orchestrator-synthesis"
+      description: "System-wide quality validation"
+      requirements:
+        - cross-domain-integration
+        - user-requirement-fulfillment
+        - final-quality-assurance
+
+  quality-gates:
+    requirements-gate:
+      criteria: ["requirements-addressed", "scope-clarity", "success-criteria-defined"]
+      approval: "manager"
+    
+    design-gate:
+      criteria: ["architecture-approved", "design-reviewed", "technical-feasibility"]
+      approval: "technical-lead"
+    
+    implementation-gate:
+      criteria: ["code-quality", "testing-complete", "documentation-current"]
+      approval: "quality-lead"
+    
+    deployment-gate:
+      criteria: ["performance-tested", "security-validated", "user-acceptance"]
+      approval: "stakeholder"
+
+# Performance Monitoring
+performance-monitoring:
+  metrics:
+    response-time:
+      target: "<200ms"
+      alert-threshold: ">500ms"
+      critical-threshold: ">1000ms"
+    
+    throughput:
+      target: ">1000 requests/hour"
+      alert-threshold: "<500 requests/hour"
+      critical-threshold: "<100 requests/hour"
+    
+    error-rate:
+      target: "<1%"
+      alert-threshold: ">5%"
+      critical-threshold: ">10%"
+    
+    resource-utilization:
+      cpu-target: "<70%"
+      memory-target: "<80%"
+      storage-target: "<85%"
+      network-target: "<80%"
+
+  alerting:
+    channels: ["email", "slack", "webhook"]
+    escalation:
+      - "immediate": "critical-thresholds"
+      - "5-minutes": "alert-thresholds"
+      - "15-minutes": "warning-thresholds"
+      - "1-hour": "info-thresholds"
+
+# Compliance and Security
+compliance:
+  data-protection:
+    encryption: "AES-256-GCM"
+    key-rotation: "90-days"
+    data-retention: "7-years"
+    privacy-by-design: true
+  
+  audit-logging:
+    enabled: true
+    log-level: "info"
+    retention-period: "1-year"
+    sensitive-data-masking: true
+  
+  access-control:
+    authentication: "multi-factor"
+    authorization: "role-based"
+    session-timeout: "8-hours"
+    password-policy: "enterprise-grade"
+
+# Policy Validation Rules
+validation:
+  schema-version: "1.0.0"
+  required-fields:
+    - "version"
+    - "metadata"
+    - "agents"
+    - "coordination"
+    - "quality-assurance"
+  
+  custom-rules:
+    - "agent-id-format": "^@[a-z-]+$"
+    - "quality-standards-numeric": "must-be-numeric-or-percentage"
+    - "resource-requirements": "must-be-low-medium-high"
+    - "mcp-permissions": "must-be-valid-permission-list"

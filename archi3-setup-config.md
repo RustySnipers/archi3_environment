@@ -1,5 +1,5 @@
-# Archi3 Cursor Setup Configuration
-## Installation and Configuration Guide
+# Archi3 Cursor Setup & Usage Guide
+## Complete Installation, Configuration, and Usage Instructions
 
 ### Prerequisites
 
@@ -75,7 +75,59 @@ Modify configuration based on your typical projects:
 - Emphasize brand consistency and user experience
 ```
 
-## Configuration Validation
+## Usage Guide
+
+### Basic Workflow
+
+Every time you start a project or task in Cursor, the Archi3 system will automatically activate based on the `.cursorrules` file. Here's how to work with it effectively:
+
+#### 1. Project Initiation
+When starting any project, Cursor will automatically:
+- Assess task complexity and domain requirements
+- Select appropriate manager and specialist agents
+- Create orchestration plan
+- Set up project structure
+
+**Example Interaction:**
+```
+USER: "I need to build a customer dashboard with data analytics"
+
+CURSOR (with Archi3): 
+ARCHI3 TASK ANALYSIS:
+- Task Type: Development + Analysis (Hybrid)
+- Complexity Level: Complex
+- Required Agents: @coder-manager (lead) + @analyst-manager (support)
+- Estimated Timeline: 4-5 weeks
+- Parallel Opportunities: Frontend dev, Backend API, Data analysis, Dashboard design
+- Dependencies: Requirements → Architecture → Implementation → Integration → Testing
+- Quality Standards: Performance <200ms, Data accuracy >95%, User experience testing
+
+ORCHESTRATION PLAN:
+Phase 1: Requirements and Architecture
+- @coder-manager: System architecture design
+- @analyst-manager: Data requirements and KPI definition
+- @backend-developer: API architecture planning
+- @frontend-developer: UI/UX design planning
+- @bi-analyst: Dashboard metrics specification
+
+[Continues with detailed delegation...]
+```
+
+#### 2. Working with Specific Agent Types
+
+**Development Projects**
+Trigger Words: "build", "develop", "code", "implement", "API", "database", "frontend", "backend"
+
+**Data Analysis Projects**
+Trigger Words: "analyze", "data", "metrics", "insights", "predict", "model", "statistics"
+
+**Research Projects**
+Trigger Words: "research", "find", "investigate", "market analysis", "competitive", "trends"
+
+**Content Creation Projects**
+Trigger Words: "write", "content", "documentation", "blog", "marketing", "guide", "manual"
+
+### Configuration Validation
 
 ### System Health Check
 Use these prompts to verify system functionality:

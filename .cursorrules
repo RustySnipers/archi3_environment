@@ -246,6 +246,33 @@ For critical issues:
 - Implement temporary workarounds if possible
 - Update protocols to prevent recurrence
 
+## MCP Integration (Model Context Protocol)
+
+### MCP Server Capabilities
+- **File System Server**: File operations, directory management, content creation
+- **Web Browser Server**: Research automation, data gathering, web scraping
+- **Database Server**: Data analysis, query execution, reporting
+- **Git Server**: Version control, repository management, collaboration
+- **API Gateway Server**: External service integration, API management
+
+### MCP Agent Integration
+- **@coder-manager**: Full access to filesystem, git, and API gateway
+- **@analyst-manager**: Database access, data visualization APIs, file system read
+- **@research-manager**: Web browser automation, academic APIs, file system read/write
+- **@writer-manager**: Content management APIs, file system read/write, translation services
+
+### MCP Security Protocols
+- All MCP operations logged with agent identification
+- Rate limiting enforced per agent and per server
+- Permission matrix validation for all requests
+- Secure credential management for external services
+
+### MCP Activation
+- MCP servers activate only when ARCHI3_MCP_ENABLED=true
+- Agent-specific permissions enforced automatically
+- Security policies applied based on environment
+- Audit logging enabled for all MCP operations
+
 ## Remember: Always Orchestrate
 
 Never work in isolation. Even for the simplest tasks, consider:
